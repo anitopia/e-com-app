@@ -1,20 +1,15 @@
 "use client";
 
+import Summary from "@/components/cart/Summary";
 import Button from "@/components/layout/Button";
+import ListItem from "@/components/product/ListItem";
 import { useCart } from "@/context/CartContext";
-import {
-  getCartItems,
-  getTotalDiscountedPrice,
-  getTotalPrice,
-} from "@/lib/utils";
-import Image from "next/image";
+import { getCartItems } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 
 const Cart = () => {
   const { products, removeProduct, clearCart } = useCart();
-  const totalPrice = getTotalPrice(products);
-  const totalDiscountedPrice = getTotalDiscountedPrice(products);
   const cartItems = getCartItems(products);
 
   return (
@@ -22,38 +17,8 @@ const Cart = () => {
       {/* Products List */}
       <div className="flex-1 space-y-4 bg-white p-6 rounded-lg shadow">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-        {cartItems.map(({ id, title, price, thumbnail, count }) => (
-          <div key={id} className="flex items-center ">
-            <Link href={`/products/${id}`}>
-              <Image
-                src={thumbnail || "https://placehold.co/60x60"}
-                alt={title + " image"}
-                width={60}
-                height={60}
-              />
-            </Link>
-            <div className="ml-4 flex-grow">
-              <h3 className="text-lg font-medium">
-                <Link href={`/products/${id}`}>{title}</Link>
-              </h3>
-              <p className="text-gray-500">
-                ${price} x {count}
-              </p>
-            </div>
-            <div className="flex items-center space-x-3 mr-4">
-              <span className="font-semibold">Total:</span>
-
-              <span>${price * count}</span>
-            </div>
-            <div className="flex items-center space-x-3">
-              <button
-                onClick={() => removeProduct(id)}
-                className="hover:text-gray-800 text-gray-600 p-0 w-6 rounded-full hover:cursor-pointer"
-              >
-                <Image src="/remove.svg" alt="Remove" width={24} height={24} />
-              </button>
-            </div>
-          </div>
+        {cartItems.map((item) => (
+          <ListItem key={item.id} item={item} removeProduct={removeProduct} />
         ))}
 
         {products.length > 0 ? (
@@ -89,27 +54,7 @@ const Cart = () => {
         )}
       </div>
 
-      <div className="w-full bg-white p-6 rounded-lg shadow h-fit md:w-64">
-        <h3 className="text-xl font-semibold mb-4">Summary</h3>
-        <div className="flex justify-between mb-2">
-          <span>Total Items:</span>
-          <span>{products.length}</span>
-        </div>
-        <div className="flex justify-between">
-          <span>Total Price:</span>
-          <span>${totalPrice.toFixed(2)}</span>
-        </div>
-        <div className="flex justify-between text-lg font-medium mt-4 mb-6 border-t-2 pt-4 border-gray-600">
-          <span>What you pay:</span>
-          <span>${totalDiscountedPrice.toFixed(2)}</span>
-        </div>
-        <Button
-          className="bg-purple-600 hover:bg-purple-800 w-full"
-          onClick={() => clearCart()}
-        >
-          Checkout
-        </Button>
-      </div>
+      <Summary products={products} clearCart={clearCart} />
     </div>
   );
 };
