@@ -17,6 +17,7 @@ const Navigation = () => {
                 alt="General Store logo"
                 src="/logo.png"
                 className="h-8 w-auto"
+                quality={30}
                 width={50}
                 height={50}
               />

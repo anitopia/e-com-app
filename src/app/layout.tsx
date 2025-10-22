@@ -1,18 +1,14 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Bubblegum_Sans } from "next/font/google";
 import "./globals.css";
 import Navigation from "@/components/layout/Header";
 import { CartProvider } from "@/context/CartContext";
 import Footer from "@/components/layout/Footer";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const bubblegumSans = Bubblegum_Sans({
+  variable: "--font-bubblegum-sans",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
+  weight: "400",
 });
 
 export const metadata: Metadata = {
@@ -27,9 +23,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
-      >
+      <body className={`${bubblegumSans.variable} antialiased`}>
         <CartProvider>
           <Navigation />
           <main

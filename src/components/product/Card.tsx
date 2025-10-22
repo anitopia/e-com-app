@@ -7,7 +7,13 @@ import Link from "next/link";
 import AddToCartBtn from "../cart/BuyBtn";
 import { Product } from "@/lib/types";
 
-export default function Card({ product }: { product: Product }) {
+export default function Card({
+  product,
+  priorityImage,
+}: {
+  product: Product;
+  priorityImage: boolean;
+}) {
   const { id, thumbnail, title, price, rating } = product;
 
   return (
@@ -19,6 +25,7 @@ export default function Card({ product }: { product: Product }) {
           width={200}
           height={200}
           className="w-full rounded-lg object-cover mb-4 max-w-50 mx-auto"
+          priority={priorityImage}
         />
         <div>
           <h3 className="text-md font-bold text-gray-700 mt-2">{title}</h3>

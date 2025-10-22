@@ -17,18 +17,24 @@ const Cart = () => {
       {/* Products List */}
       <div className="flex-1 space-y-4 bg-white p-6 rounded-lg shadow">
         <h2 className="text-2xl font-semibold mb-4">Your Cart</h2>
-        {cartItems.map((item) => (
-          <ListItem key={item.id} item={item} removeProduct={removeProduct} />
-        ))}
 
         {products.length > 0 ? (
-          <Button
-            className="bg-gray-600  hover:bg-gray-800"
-            onClick={() => clearCart()}
-            aria-label={`Remove all items from cart`}
-          >
-            Clear Cart
-          </Button>
+          <>
+            {cartItems.map((item) => (
+              <ListItem
+                key={item.id}
+                item={item}
+                removeProduct={removeProduct}
+              />
+            ))}
+            <Button
+              className="bg-gray-600  hover:bg-gray-800"
+              onClick={() => clearCart()}
+              aria-label={`Remove all items from cart`}
+            >
+              Clear Cart
+            </Button>
+          </>
         ) : (
           <>
             <p>Your cart is empty.</p>

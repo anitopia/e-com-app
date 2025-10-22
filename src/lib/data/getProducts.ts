@@ -1,14 +1,19 @@
 import { stripData } from "../utils";
 import { Product } from "../types";
 
+const categorizedProducts = (products: Product[]) =>
+  products.reduce((acc, product) => {
+    const category = product.category || "uncategorized";
+    if (!acc[category]) acc[category] = [];
+    acc[category].push(stripData(product));
+    return acc;
+  }, {} as Record<string, Product[]>);
+
 export const getProducts = async (): Promise<Record<
   string,
   Product[]
 > | null> => {
-  const res = await fetch(`https://dummyjson.com/products`, {
-    // adjust caching to revalidate every 60s on the server
-    next: { revalidate: 60 },
-  });
+  const res = await fetch(`https://dummyjson.com/products`);
 
   if (!res.ok) {
     console.error(`Error: Failed to fetch products: ${res.statusText}`);
@@ -22,12 +27,5 @@ export const getProducts = async (): Promise<Record<
     return null;
   }
 
-  const categorizedProducts = data.products.reduce((acc, product) => {
-    const category = product.category || "uncategorized";
-    if (!acc[category]) acc[category] = [];
-    acc[category].push(stripData(product));
-    return acc;
-  }, {} as Record<string, Product[]>);
-
-  return categorizedProducts;
+  return categorizedProducts(data.products);
 };
