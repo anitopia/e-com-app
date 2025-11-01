@@ -27,7 +27,8 @@ export const getTotalPrice = (products: CartItem[]) =>
 export const getTotalDiscountedPrice = (products: CartItem[]) =>
   products
     .reduce(
-      (sum, p) => sum + Number(discountedPrice(p.price, p.discountPercentage)),
+      (sum, p) =>
+        sum + Number(discountedPrice(p.price * p.count, p.discountPercentage)),
       0
     )
     .toFixed(2);
