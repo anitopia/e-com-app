@@ -4,13 +4,12 @@ import Summary from "@/components/cart/Summary";
 import Button from "@/components/layout/Button";
 import ListItem from "@/components/product/ListItem";
 import { useCart } from "@/context/CartContext";
-import { getCartItems } from "@/lib/utils";
 import Link from "next/link";
 import React from "react";
 
 const Cart = () => {
-  const { products, removeProduct, clearCart } = useCart();
-  const cartItems = getCartItems(products);
+  const { products, handleCart, clearCart } = useCart();
+  const cartItems = products;
 
   return (
     <div className="flex flex-col md:flex-row gap-8 p-8 max-w-5xl mx-auto">
@@ -21,11 +20,7 @@ const Cart = () => {
         {products.length > 0 ? (
           <>
             {cartItems.map((item) => (
-              <ListItem
-                key={item.id}
-                item={item}
-                removeProduct={removeProduct}
-              />
+              <ListItem key={item.id} item={item} handleCart={handleCart} />
             ))}
             <Button
               className="bg-gray-600  hover:bg-gray-800"

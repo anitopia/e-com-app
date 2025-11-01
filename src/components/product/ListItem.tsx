@@ -5,10 +5,10 @@ import React from "react";
 
 interface Props {
   item: CartItem;
-  removeProduct: (id: number) => void;
+  handleCart: (product: CartItem, count: number) => void;
 }
 
-const ListItem = ({ item, removeProduct }: Props) => {
+const ListItem = ({ item, handleCart }: Props) => {
   const { id, title, thumbnail, price, count } = item;
 
   return (
@@ -32,11 +32,11 @@ const ListItem = ({ item, removeProduct }: Props) => {
       <div className="flex items-center space-x-3 mr-4">
         <span className="font-semibold">Total:</span>
 
-        <span>${price * count}</span>
+        <span>${Number(price * count).toFixed(2)}</span>
       </div>
       <div className="flex items-center space-x-3">
         <button
-          onClick={() => removeProduct(id)}
+          onClick={() => handleCart(item, 0)}
           className="hover:text-gray-800 text-gray-600 p-0 w-6 rounded-full hover:cursor-pointer"
         >
           <Image src="/remove.svg" alt="Remove" width={24} height={24} />
