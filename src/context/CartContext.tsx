@@ -8,7 +8,13 @@
  */
 "use client";
 import { CartItem, Product } from "@/lib/types";
-import { createContext, useContext, useState, ReactNode } from "react";
+import {
+  createContext,
+  useContext,
+  useState,
+  ReactNode,
+  useEffect,
+} from "react";
 
 interface CartContextType {
   products: CartItem[];
@@ -21,6 +27,17 @@ const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<CartItem[]>([]);
+  // Load cart items from localStorage on initial render
+  useEffect(() => {
+    const storedCart = localStorage.getItem("cartItems");
+    if (storedCart) {
+      setProducts(JSON.parse(storedCart));
+    }
+  }, []);
+  // Persist cart items to localStorage whenever products change
+  useEffect(() => {
+    localStorage.setItem("cartItems", JSON.stringify(products));
+  }, [products]);
 
   // Check if a product with the given id exists in the cart.
   const isInCart = (id: number) => {
