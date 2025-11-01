@@ -20,6 +20,8 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## State management
 
 The state management is handled by using react context for cart items. It is also stored in localStorage to persist the data and be more resilient to user interactions with the browser like having multiple tabs open. 
+Still the items are gotten on initial load from localStorage and that leads to disparity between tabs. LocalStorage is updated but the context is still different in each tab and one need refreshing to get the items from another. 
+Other things to consider is that localStorage has data limitation and its vulnarable to cross-site scripting
 
 Generally most of the components are SSR with exception of few interactive components which are connected to the cart. That way the pages are loading and visually the same even when JavaScript is disabled, which greatly improves performance and SEO. 
 
