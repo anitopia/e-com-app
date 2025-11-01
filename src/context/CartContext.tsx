@@ -1,9 +1,3 @@
-/**
- * Cart context and hook for managing the list of products in a client-side shopping cart.
- *
- * The cart supports adding, updating, or removing a product in the cart, checking if it is already in the cart,
- * and clearing the entire cart.
- */
 "use client";
 
 import { CartItem, Product } from "@/lib/types";
@@ -15,6 +9,12 @@ import {
   useEffect,
 } from "react";
 
+/**
+ * Cart context and hook for managing the list of products in a client-side shopping cart.
+ *
+ * The cart supports adding, updating, or removing a product in the cart, checking if it is already in the cart,
+ * and clearing the entire cart.
+ */
 export interface CartContextType {
   products: CartItem[];
   /**  Adding, updating, or removing a product in the cart.
