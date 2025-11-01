@@ -1,6 +1,9 @@
 import { stripData } from "../utils";
 import { Product } from "../types";
 
+// This is just to demonstrate some data manipulation but ideally
+// categories should be fetched from the API directly.
+/** Group products by their category */
 const categorizedProducts = (products: Product[]) =>
   products.reduce((acc, product) => {
     const category = product.category || "uncategorized";

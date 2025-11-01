@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 import { useCart } from "@/context/CartContext";
 import { Product } from "@/lib/types";
 import Button from "../layout/Button";
-import Image from "next/image";
 
 const BuyBtn = (product: Product) => {
   const { id, title } = product;

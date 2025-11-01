@@ -10,6 +10,7 @@ import Rating from "@/components/product/Rating";
 async function ProductPage({ params }: { params: { id: string } }) {
   const { id } = await params;
 
+  // Fetch product data based on the id from the URL - SSR
   const product: Product | null = await getProduct(id);
   const {
     title,
@@ -19,6 +20,7 @@ async function ProductPage({ params }: { params: { id: string } }) {
     images = [],
     rating,
   } = product || {};
+
   if (!product?.id) {
     console.error(`Product with id ${id} not found`);
     return notFound();

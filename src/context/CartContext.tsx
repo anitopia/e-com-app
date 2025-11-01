@@ -27,6 +27,7 @@ const CartContext = createContext<CartContextType | null>(null);
 
 export function CartProvider({ children }: { children: ReactNode }) {
   const [products, setProducts] = useState<CartItem[]>([]);
+
   // Load cart items from localStorage on initial render
   useEffect(() => {
     const storedCart = localStorage.getItem("cartItems");
@@ -34,6 +35,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
       setProducts(JSON.parse(storedCart));
     }
   }, []);
+
   // Persist cart items to localStorage whenever products change
   useEffect(() => {
     localStorage.setItem("cartItems", JSON.stringify(products));
@@ -64,6 +66,7 @@ export function CartProvider({ children }: { children: ReactNode }) {
     }
   };
 
+  // Clear all products from the cart.
   const clearCart = () => {
     setProducts([]);
   };

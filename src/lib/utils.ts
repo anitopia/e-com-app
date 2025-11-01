@@ -1,6 +1,9 @@
 import { CartItem, Product } from "./types";
 
-// We dont need all the data from the API, so we strip it down to whats needed
+/** Utility function to strip unneeded fields from the Product data.
+ * Cart Context currently stores all the data as is but if the data needed in the product page
+ * and cart summary page varies by a lot it would be better to strip the data even further
+ * in the cart context where we are adding new items to a smaller subset*/
 export const stripData = (data: Product): Product => ({
   id: data.id,
   title: data.title,

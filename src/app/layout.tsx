@@ -12,7 +12,7 @@ const bubblegumSans = Bubblegum_Sans({
 });
 
 export const metadata: Metadata = {
-  title: "GStore",
+  title: "General Store",
   description: "A simple e-commerce application",
 };
 

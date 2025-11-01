@@ -4,6 +4,7 @@ import { getProducts } from "@/lib/data/getProducts";
 import { notFound } from "next/navigation";
 
 export default async function Home() {
+  // Fetch categorized products - SSR.
   const categorizedProducts = await getProducts();
   if (!categorizedProducts) {
     return notFound();
