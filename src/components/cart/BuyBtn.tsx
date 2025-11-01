@@ -34,6 +34,7 @@ const BuyBtn = (product: Product) => {
             value={count}
             className="border border-gray-300 rounded-md p-1 w-16 text-center"
             onChange={(e) => handleCart(product, Number(e.target.value))}
+            aria-label={`Change ${title} count to cart`}
           />
           <Button
             className="flex-grow bg-gray-600 hover:bg-gray-800 px-3"
