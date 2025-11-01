@@ -16,21 +16,26 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## State management
 
-## Learn More
+The state management is handled by using react context for cart items. It is also stored in localStorage to persist the data and be more resilient to user interactions with the browser like having multiple tabs open. 
 
-To learn more about Next.js, take a look at the following resources:
+Generally most of the components are SSR with exception of few interactive components which are connected to the cart. That way the pages are loading and visually the same even when JavaScript is disabled, which greatly improves performance and SEO. 
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Client components:  
+- Cart button in the header - for getting the total count 
+- Cart page - private to the user, has no initially rendered/fetched data and has no seo impact
+- Buy button - used in homepage and product page
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+## Cart specifics
+Currently the cart will be lost when the browser is restarted but that can be avoided if the cart is connected to an account. That in its own will lead to another issue with 2 separate carts that would need merging - one local and one coming from the backend after the user logs in. That way it wont be lost with time and can be initially SSR which for bigger data would have good impact on performance.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+The items can only be removed from the cart page but depending on the requirements, adding the "Buy button" would be a quick task.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+
+## A few overall missing pieces:
+- Unit tests (very important for large codebase projects and big teams)
+- Loading state for pages (eg. skeleton structure)
+- Logging/Monitoring/Analytics
